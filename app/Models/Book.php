@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property-read int $id
+ * @property string $name
+ * @property string $type
+ * @property int $author_id
+ */
 class Book extends Model
 {
     use HasFactory;

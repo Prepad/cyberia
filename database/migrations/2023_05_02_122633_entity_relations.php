@@ -13,21 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        if (Schema::hasTable('books_genres')) {
-            Schema::drop('books_genres');
-        }
         Schema::create('books_genres', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('book_id')->unsigned();
             $table->foreign('book_id')
                 ->references('id')
-                ->on('books')
-                ->onDelete('cascade');
+                ->on('books');
             $table->bigInteger('genre_id')->unsigned();
             $table->foreign('genre_id')
                 ->references('id')
-                ->on('genres')
-                ->onDelete('cascade');
+                ->on('genres');
         });
         Schema::table('books', function (Blueprint $table) {
             $table->bigInteger('author_id')->unsigned();
