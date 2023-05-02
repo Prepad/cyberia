@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\Genre;
+use App\Models\User;
+use App\Observers\LogObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -19,6 +24,15 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
+
+    protected $observers = [
+        User::class => [LogObserver::class],
+        Genre::class => [LogObserver::class],
+        Author::class => [LogObserver::class],
+        Book::class => [LogObserver::class],
+    ];
+
+
 
     /**
      * Register any events for your application.
