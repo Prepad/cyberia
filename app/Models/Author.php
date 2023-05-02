@@ -15,7 +15,7 @@ class Author extends Model
     use HasFactory;
     use ModelWithLogger;
 
-    protected $table = 'books';
+    protected $table = 'authors';
     public $timestamps = false;
 
     protected $fillable =[

@@ -17,16 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         Genre::factory(10)->create();
         Author::factory(10)->create();
-        $books = Book::factory(30);
-        dd($books);
+        Book::factory(30)->create();
+        Book::all()->each(function (Book $book) {
+            $book->genres()->attach(Genre::query()->inRandomOrder()->limit(rand(1, 3))->get()->pluck('id'));
+        });
     }
 }
