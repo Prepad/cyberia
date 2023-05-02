@@ -19,9 +19,9 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake('ru_RU')->words(3),
-            'type' => array_rand(array_column(BookTypeEnum::cases(), 'value')),
-            'author_id' => Author::inRandomOrder()->get()->id,
+            'name' => fake('ru_RU')->sentence(3),
+            'type' => BookTypeEnum::cases()[array_rand(BookTypeEnum::cases())]->value,
+            'author_id' => Author::query()->inRandomOrder()->first()->id,
         ];
     }
 }

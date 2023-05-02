@@ -13,7 +13,7 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $table = 'books';
+    protected $table = 'authors';
     public $timestamps = false;
 
     protected $fillable =[
