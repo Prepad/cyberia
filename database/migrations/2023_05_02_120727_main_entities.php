@@ -17,16 +17,19 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('type');
+            $table->timestamps();
         });
 
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->timestamps();
         });
 
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->timestamps();
         });
     }
 

@@ -16,7 +16,6 @@ class Genre extends Model
     use HasFactory, ModelWithLogger;
 
     protected $table = 'genres';
-    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -24,6 +23,11 @@ class Genre extends Model
 
     protected $guarded = [
         'id',
+    ];
+
+    protected $casts =[
+        'crated_at' => 'datetime:d.m.Y',
+        'updated_at' => 'datetime:d.m.Y',
     ];
 
     public function books()

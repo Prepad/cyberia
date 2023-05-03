@@ -17,7 +17,6 @@ class Book extends Model
     use HasFactory, ModelWithLogger;
 
     protected $table = 'books';
-    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -27,6 +26,11 @@ class Book extends Model
 
     protected $guarded = [
         'id',
+    ];
+
+    protected $casts =[
+        'crated_at' => 'datetime:d.m.Y',
+        'updated_at' => 'datetime:d.m.Y',
     ];
 
     public function author()
