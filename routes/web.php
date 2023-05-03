@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Web\AuthorController;
+use App\Http\Controllers\Web\BookController;
+use App\Http\Controllers\Web\GenreController;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
@@ -16,14 +19,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/books', function () {
-    return view('lists.books', [
-        'books' => Book::query()->paginate(10),
-    ]);
-})->name('booksList');
+Route::get('/books', [BookController::class, 'list'])->name('booksList');
 
-Route::get('/authors', function () {
-    return view('lists.authors', [
-        'authors' => Author::query()->paginate(10),
-    ]);
-})->name('authorsList');
+Route::get('/book/create', function () {
+    return view('create.book');
+})->name('bookCreateForm');
+
+Route::post('/book/save', [BookController::class, 'create'])->name('bookCreate');
+
+Route::get('/authors', [AuthorController::class, 'list'])->name('authorsList');
+
+Route::get('/genres', [GenreController::class, 'list'])->name('genresList');
