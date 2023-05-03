@@ -14,8 +14,7 @@ use App\Traits\ModelWithLogger;
  */
 class Book extends Model
 {
-    use HasFactory;
-    use ModelWithLogger;
+    use HasFactory, ModelWithLogger;
 
     protected $table = 'books';
     public $timestamps = false;

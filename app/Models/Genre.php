@@ -13,8 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Genre extends Model
 {
-    use HasFactory;
-    use ModelWithLogger;
+    use HasFactory, ModelWithLogger;
 
     protected $table = 'genres';
     public $timestamps = false;

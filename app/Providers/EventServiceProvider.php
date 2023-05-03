@@ -26,7 +26,6 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     protected $observers = [
-        User::class => [LogObserver::class],
         Genre::class => [LogObserver::class],
         Author::class => [LogObserver::class],
         Book::class => [LogObserver::class],

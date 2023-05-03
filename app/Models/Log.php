@@ -18,11 +18,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Log extends Model
 {
+    use HasFactory;
+
+    protected $table = 'logs';
+
     protected $fillable = [
         'field',
         'old',
         'new',
         'operation',
     ];
-    use HasFactory;
+
+    protected $guarded = [
+        'id',
+    ];
 }

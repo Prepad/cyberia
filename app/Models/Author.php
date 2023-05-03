@@ -12,8 +12,7 @@ use App\Traits\ModelWithLogger;
  */
 class Author extends Model
 {
-    use HasFactory;
-    use ModelWithLogger;
+    use HasFactory, ModelWithLogger;
 
     protected $table = 'authors';
     public $timestamps = false;
