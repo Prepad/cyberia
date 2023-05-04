@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Web\AuthorController;
-use App\Http\Controllers\Web\BookController;
-use App\Http\Controllers\Web\GenreController;
+use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\GenreController;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
