@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthorUpdateRequest;
 use App\Models\Author;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -16,32 +17,16 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(AuthorUpdateRequest $request)
     {
-        $request->validate(
-            [
-                'authorName' => 'required',
-            ],
-            [
-                'authorName.required' => 'Введите имя автора',
-            ]
-        );
         $author = new Author();
         $author->name = $request->authorName;
         $author->save();
         return redirect(route('authorsList'));
     }
 
-    public function update(Request $request)
+    public function update(AuthorUpdateRequest $request)
     {
-        $request->validate(
-            [
-                'authorName' => 'required',
-            ],
-            [
-                'authorName.required' => 'Введите название жанра',
-            ]
-        );
         $author = Author::find($request->authorId);
         $author->name = $request->authorName;
         $author->save();
