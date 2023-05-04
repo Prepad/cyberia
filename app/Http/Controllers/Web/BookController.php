@@ -10,9 +10,8 @@ class BookController extends Controller
 {
     public function list()
     {
-        $books = Book::query()->paginate(10);
         return view('lists.books', [
-            'books' => $books,
+            'books' => Book::query()->paginate(10),
         ]);
     }
 
@@ -34,6 +33,38 @@ class BookController extends Controller
             ]
         );
         $book = new Book();
+        $book->name = $request->bookName;
+        $book->type = $request->bookType;
+        $book->author_id = $request->bookAuthor;
+        $book->save();
+        $book->genres()->sync($request->bookGenre);
+        return redirect(route('booksList'));
+    }
+
+    public function delete(int $id)
+    {
+        Book::destroy($id);
+        return redirect()->back();
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate(
+            [
+                'bookName' => 'required|unique:books,name',
+                'bookType' => 'required',
+                'bookAuthor' => 'required',
+                'bookGenre' => 'required',
+            ],
+            [
+                'bookName.required' => 'Введите название книги',
+                'bookName.unique' => 'Такое название книги уже существует',
+                'bookType.required' => 'Введите тип издания',
+                'bookAuthor.required' => 'Введите автора книги',
+                'bookGenre.required' => 'Введите жанр книги',
+            ]
+        );
+        $book = Book::find($request->bookId);
         $book->name = $request->bookName;
         $book->type = $request->bookType;
         $book->author_id = $request->bookAuthor;

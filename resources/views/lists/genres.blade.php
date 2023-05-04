@@ -2,6 +2,7 @@
 <body>
 @include('includes.nav')
 <div class="container">
+    <a class="btn btn-outline-success" href="{{route('genreCreateForm')}}" role="button">Добавить жанр</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -11,7 +12,13 @@
         <tbody>
         @foreach($genres as $genre)
             <tr>
-                <td>{{$genre->name}}</td>
+                <td><a href="{{ route('genreDetail', ['id' => $genre->id]) }}">{{$genre->name}}</a></td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="First group">
+                        <a class="btn btn-outline-warning" href="{{ route('genreUpdateForm', ['id' => $genre->id]) }}" role="button">Изменить</a>
+                        <a class="btn btn-outline-danger" href="{{ route('genreDelete', ['id' => $genre->id]) }}" role="button">Удалить</a>
+                    </div>
+                </td>
             </tr>
         @endforeach
         </tbody>

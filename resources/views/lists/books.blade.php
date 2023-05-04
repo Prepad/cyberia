@@ -2,6 +2,7 @@
 <body>
 @include('includes.nav')
 <div class="container">
+    <a class="btn btn-outline-success" href="{{route('bookCreateForm')}}" role="button">Добавить книгу</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -14,10 +15,16 @@
         <tbody>
         @foreach($books as $book)
             <tr>
-                <td>{{$book->name}}</td>
+                <td><a href="{{ route('bookDetail', ['id' => $book->id]) }}">{{$book->name}}</a></td>
                 <td>{{$book->author->name}}</td>
                 <td>{{implode(',',array_column($book->genres->toArray(), 'name'))}}</td>
                 <td>{{$book->created_at}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="First group">
+                        <a class="btn btn-outline-warning" href="{{ route('bookUpdateForm', ['id' => $book->id]) }}" role="button">Изменить</a>
+                        <a class="btn btn-outline-danger" href="{{ route('bookDelete', ['id' => $book->id]) }}" role="button">Удалить</a>
+                    </div>
+                </td>
             </tr>
         @endforeach
         </tbody>

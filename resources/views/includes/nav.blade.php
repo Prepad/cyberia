@@ -7,9 +7,6 @@
                 <a class="nav-link" href="{{route('booksList')}}">Список книг</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('bookCreateForm')}}">Создать книгу</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="{{route('authorsList')}}">Список авторов</a>
             </li>
             <li class="nav-item">

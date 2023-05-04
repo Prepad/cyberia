@@ -29,8 +29,8 @@ class Book extends Model
     ];
 
     protected $casts =[
-        'crated_at' => 'datetime:d.m.Y',
-        'updated_at' => 'datetime:d.m.Y',
+        'crated_at' => 'date',
+        'updated_at' => 'date',
     ];
 
     public function author()

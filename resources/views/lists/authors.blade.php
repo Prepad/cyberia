@@ -2,6 +2,7 @@
 <body>
 @include('includes.nav')
 <div class="container">
+    <a class="btn btn-outline-success" href="{{route('authorCreateForm')}}" role="button">Добавить автора</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -12,8 +13,14 @@
         <tbody>
         @foreach($authors as $author)
             <tr>
-                <td>{{$author->name}}</td>
+                <td><a href="{{ route('authorDetail', ['id' => $author->id]) }}">{{$author->name}}</a></td>
                 <td>{{$author->books->count()}}</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="First group">
+                        <a class="btn btn-outline-warning" href="{{ route('authorUpdateForm', ['id' => $author->id]) }}" role="button">Изменить</a>
+                        <a class="btn btn-outline-danger" href="{{ route('authorDelete', ['id' => $author->id]) }}" role="button">Удалить</a>
+                    </div>
+                </td>
             </tr>
         @endforeach
         </tbody>

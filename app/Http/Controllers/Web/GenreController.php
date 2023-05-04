@@ -15,4 +15,42 @@ class GenreController extends Controller
             'genres' => Genre::query()->paginate(10),
         ]);
     }
+
+    public function create(Request $request)
+    {
+        $request->validate(
+            [
+                'genreName' => 'required',
+            ],
+            [
+                'genreName.required' => 'Введите название жанра',
+            ]
+        );
+        $genre = new Genre();
+        $genre->name = $request->genreName;
+        $genre->save();
+        return redirect(route('genresList'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate(
+            [
+                'genreName' => 'required',
+            ],
+            [
+                'genreName.required' => 'Введите название жанра',
+            ]
+        );
+        $genre = Genre::find($request->genreId);
+        $genre->name = $request->genreName;
+        $genre->save();
+        return redirect(route('genresList'));
+    }
+
+    public function delete(int $id)
+    {
+        Genre::destroy($id);
+        return redirect()->back();
+    }
 }

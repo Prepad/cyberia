@@ -18,17 +18,23 @@ return new class extends Migration
             $table->bigInteger('book_id')->unsigned();
             $table->foreign('book_id')
                 ->references('id')
-                ->on('books');
+                ->on('books')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->bigInteger('genre_id')->unsigned();
             $table->foreign('genre_id')
                 ->references('id')
-                ->on('genres');
+                ->on('genres')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
         Schema::table('books', function (Blueprint $table) {
             $table->bigInteger('author_id')->unsigned();
             $table->foreign('author_id')
                 ->references('id')
-                ->on('authors');
+                ->on('authors')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 
