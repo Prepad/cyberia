@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GenreCreateRequest;
-use App\Http\Requests\GenreUpdateRequest;
+use App\Http\Requests\Admin\GenreCreateRequest;
+use App\Http\Requests\Admin\GenreUpdateRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 

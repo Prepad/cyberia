@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthorUpdateRequest extends FormRequest
+class GenreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class AuthorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'authorName' => 'required',
+            'genreName' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'authorName.required' => 'Введите название жанра',
+            'genreName.required' => 'Введите название жанра',
         ];
     }
 }
