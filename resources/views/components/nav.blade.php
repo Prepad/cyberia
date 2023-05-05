@@ -4,6 +4,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
+                <a class="nav-link" href="{{route('home')}}">Главная</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{route('booksList')}}">Список книг</a>
             </li>
             <li class="nav-item">

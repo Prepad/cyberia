@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('/', 'home')->name('home');
+
 Route::get('/books', [BookController::class, 'list'])->name('booksList');
 
 Route::get('/book/detail/{id}', [BookController::class, 'detail'])->name('bookDetail');
