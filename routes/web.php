@@ -22,17 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/books', [BookController::class, 'list'])->name('booksList');
 
-Route::get('/book/detail/{id}', function ($id) {
-    return view('detail.book',
-        [
-            'book' => Book::find($id),
-        ]
-    );
-})->name('bookDetail');
+Route::get('/book/detail/{id}', [BookController::class, 'detail'])->name('bookDetail');
 
-Route::get('/book/create/', function () {
-    return view('create.book');
-})->name('bookCreateForm');
+Route::view('/book/create/', 'create.book')->name('bookCreateForm');
 
 Route::get('/book/update/{id}', function (int $id) {
     return view('update.book',
@@ -50,17 +42,9 @@ Route::get('/book/delete/{id}', [BookController::class, 'delete'])->name('bookDe
 
 Route::get('/authors', [AuthorController::class, 'list'])->name('authorsList');
 
-Route::get('/author/detail/{id}', function ($id) {
-    return view('detail.author',
-        [
-            'author' => Author::find($id),
-        ]
-    );
-})->name('authorDetail');
+Route::get('/author/detail/{id}', [AuthorController::class, 'detail'])->name('authorDetail');
 
-Route::get('/author/create/', function () {
-    return view('create.author');
-})->name('authorCreateForm');
+Route::view('/author/create/', 'create.author')->name('authorCreateForm');
 
 Route::get('/author/update/{id}', function (int $id) {
     return view('update.author',
@@ -78,9 +62,7 @@ Route::get('/author/delete/{id}', [AuthorController::class, 'delete'])->name('au
 
 Route::get('/genres', [GenreController::class, 'list'])->name('genresList');
 
-Route::get('/genre/create/', function () {
-    return view('create.genre');
-})->name('genreCreateForm');
+Route::view('/genre/create/', 'create.genre')->name('genreCreateForm');
 
 Route::post('/genre/create/', [GenreController::class, 'create'])->name('genreCreate');
 
@@ -94,12 +76,6 @@ Route::get('/genre/update/{id}', function (int $id) {
 
 Route::post('/genre/update/', [GenreController::class, 'update'])->name('genreUpdate');
 
-Route::get('/genre/{id}', function ($id) {
-    return view('detail.genre',
-        [
-            'genre' => Genre::find($id),
-        ]
-    );
-})->name('genreDetail');
+Route::get('/genre/detail/{id}', [GenreController::class, 'detail'])->name('genreDetail');
 
 Route::get('/genre/delete/{id}', [GenreController::class, 'delete'])->name('genreDelete');

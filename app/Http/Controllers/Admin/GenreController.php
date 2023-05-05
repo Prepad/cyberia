@@ -18,6 +18,15 @@ class GenreController extends Controller
         ]);
     }
 
+    public function detail(int $id)
+    {
+        return view('detail.genre',
+            [
+                'genre' => Genre::find($id),
+            ]
+        );
+    }
+
     public function create(GenreCreateRequest $request)
     {
         $genre = new Genre();

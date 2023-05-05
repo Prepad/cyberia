@@ -16,6 +16,15 @@ class BookController extends Controller
         ]);
     }
 
+    public function detail(int $id)
+    {
+        return view('detail.book',
+            [
+                'book' => Book::find($id),
+            ]
+        );
+    }
+
     public function create(BookCreateRequest $request)
     {
         $book = new Book();

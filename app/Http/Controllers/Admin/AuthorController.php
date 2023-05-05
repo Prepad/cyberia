@@ -17,6 +17,15 @@ class AuthorController extends Controller
         ]);
     }
 
+    public function detail(int $id)
+    {
+        return view('detail.author',
+            [
+                'author' => Author::find($id),
+            ]
+        );
+    }
+
     public function create(AuthorUpdateRequest $request)
     {
         $author = new Author();
