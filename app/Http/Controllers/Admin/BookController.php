@@ -23,7 +23,9 @@ class BookController extends Controller
             $books = $books->where('author_id', '=', $request->get('author'));
         }
         if ($request->has('genre')) {
-            $books = $books->genres()->where('id', '=', $request->get('id'));
+            $books = $books->whereHas('genres', function ($query) use ($request) {
+                $query->where('genres.id', '=', $request->get('genre'));
+            });
         }
         return view('lists.books', [
             'books' => $books->paginate(10),

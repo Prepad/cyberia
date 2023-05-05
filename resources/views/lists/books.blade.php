@@ -34,11 +34,11 @@
             <div class="input-group">
                 <select class="form-control mr-sm-2" name="genre">
                     @foreach(\App\Models\Genre::all() as $genre)
-                        <option value="{{$genre->id}}" @if($genre->id == request()->get('author')) {{ 'selected' }} @endif>{{$genre->name}}</option>
+                        <option value="{{$genre->id}}" @if($genre->id == request()->get('genre')) {{ 'selected' }} @endif>{{$genre->name}}</option>
                     @endforeach
                 </select>
                 <div class="input-group-append">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Фильтр</button>
                 </div>
             </div>
         </form>
