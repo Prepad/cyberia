@@ -9,10 +9,23 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function list()
+    public function list(Request $request)
     {
+        $books = new Book();
+        if ($request->has('search')) {
+            $books = $books->where('name', 'like', '%' . $request->get('search') . '%');
+        }
+        if ($request->has('sort')) {
+            $books = $books->orderBy('name', $request->get('sort'));
+        }
+        if ($request->has('author')) {
+            $books = $books->where('author_id', '=', $request->get('author'));
+        }
+        if ($request->has('genre')) {
+            $books = $books->genres()->where('id', '=', $request->get('id'));
+        }
         return view('lists.books', [
-            'books' => Book::query()->paginate(10),
+            'books' => $books->paginate(10),
         ]);
     }
 
