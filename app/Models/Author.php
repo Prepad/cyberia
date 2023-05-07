@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelWithLogger;
@@ -9,6 +10,8 @@ use App\Traits\ModelWithLogger;
 /**
  * @property-read int $id
  * @property string $name
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Author extends Model
 {
