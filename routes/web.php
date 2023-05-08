@@ -92,6 +92,6 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/tokens', [UserController::class, 'tokens'])->name('tokens');
+Route::middleware(['auth'])->get('/tokens', [UserController::class, 'tokens'])->name('tokens');
 Route::post('/create-token', [UserController::class, 'createToken'])->name('create-token');
 Route::view('/create-token', 'create-token')->name('create-token-view');

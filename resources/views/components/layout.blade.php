@@ -10,8 +10,6 @@
 </head>
 
 <body>
-    <h1>Todos</h1>
-    <hr />
     <x-nav />
     {{ $slot }}
 </body>
