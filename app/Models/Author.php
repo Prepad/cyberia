@@ -9,6 +9,7 @@ use App\Traits\ModelWithLogger;
 /**
  * @property-read int $id
  * @property string $name
+ * @property-read int $user_id
  */
 class Author extends Model
 {
@@ -18,6 +19,7 @@ class Author extends Model
 
     protected $fillable =[
         'name',
+        'user_id'
     ];
 
     protected $guarded = [
@@ -32,5 +34,10 @@ class Author extends Model
     public function books()
     {
         return $this->hasMany(Book::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

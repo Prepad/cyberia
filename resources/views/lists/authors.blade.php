@@ -1,6 +1,4 @@
-@include('includes.header')
-<body>
-@include('includes.nav')
+<x-layout>
 <div class="container">
     <a class="btn btn-outline-success" href="{{route('authorCreateForm')}}" role="button">Добавить автора</a>
     <table class="table">
@@ -47,5 +45,4 @@
     </nav>
     @endif
 </div>
-</body>
-</html>
+</x-layout>

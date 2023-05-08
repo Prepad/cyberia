@@ -3,10 +3,12 @@
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,62 +22,76 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/books', [BookController::class, 'list'])->name('booksList');
+Auth::routes();
 
-Route::get('/book/detail/{id}', [BookController::class, 'detail'])->name('bookDetail');
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/books', [BookController::class, 'list'])->name('booksList');
 
-Route::view('/book/create/', 'create.book')->name('bookCreateForm');
+    Route::get('/book/detail/{id}', [BookController::class, 'detail'])->name('bookDetail');
 
-Route::get('/book/update/{id}', function (int $id) {
-    return view('update.book',
-        [
-            'book' => Book::find($id),
-        ]
-    );
-})->name('bookUpdateForm');
+    Route::view('/book/create/', 'create.book')->name('bookCreateForm');
 
-Route::post('/book/update/', [BookController::class, 'update'])->name('bookUpdate');
+    Route::get('/book/update/{id}', function (int $id) {
+        return view(
+            'update.book',
+            [
+                'book' => Book::find($id),
+            ]
+        );
+    })->name('bookUpdateForm');
 
-Route::post('/book/create/', [BookController::class, 'create'])->name('bookCreate');
+    Route::post('/book/update/', [BookController::class, 'update'])->name('bookUpdate');
 
-Route::get('/book/delete/{id}', [BookController::class, 'delete'])->name('bookDelete');
+    Route::post('/book/create/', [BookController::class, 'create'])->name('bookCreate');
 
-Route::get('/authors', [AuthorController::class, 'list'])->name('authorsList');
+    Route::get('/book/delete/{id}', [BookController::class, 'delete'])->name('bookDelete');
 
-Route::get('/author/detail/{id}', [AuthorController::class, 'detail'])->name('authorDetail');
+    Route::get('/authors', [AuthorController::class, 'list'])->name('authorsList');
 
-Route::view('/author/create/', 'create.author')->name('authorCreateForm');
+    Route::get('/author/detail/{id}', [AuthorController::class, 'detail'])->name('authorDetail');
 
-Route::get('/author/update/{id}', function (int $id) {
-    return view('update.author',
-        [
-            'author' => Author::find($id),
-        ]
-    );
-})->name('authorUpdateForm');
+    Route::view('/author/create/', 'create.author')->name('authorCreateForm');
 
-Route::post('/author/update/', [AuthorController::class, 'update'])->name('authorUpdate');
+    Route::get('/author/update/{id}', function (int $id) {
+        return view(
+            'update.author',
+            [
+                'author' => Author::find($id),
+            ]
+        );
+    })->name('authorUpdateForm');
 
-Route::post('/author/create/', [AuthorController::class, 'create'])->name('authorCreate');
+    Route::post('/author/update/', [AuthorController::class, 'update'])->name('authorUpdate');
 
-Route::get('/author/delete/{id}', [AuthorController::class, 'delete'])->name('authorDelete');
+    Route::post('/author/create/', [AuthorController::class, 'create'])->name('authorCreate');
 
-Route::get('/genres', [GenreController::class, 'list'])->name('genresList');
+    Route::get('/author/delete/{id}', [AuthorController::class, 'delete'])->name('authorDelete');
 
-Route::view('/genre/create/', 'create.genre')->name('genreCreateForm');
+    Route::get('/genres', [GenreController::class, 'list'])->name('genresList');
 
-Route::post('/genre/create/', [GenreController::class, 'create'])->name('genreCreate');
+    Route::view('/genre/create/', 'create.genre')->name('genreCreateForm');
 
-Route::get('/genre/update/{id}', function (int $id) {
-    return view('update.genre',
-        [
-            'genre' => Genre::find($id),
-        ]
-    );
-})->name('genreUpdateForm');
+    Route::post('/genre/create/', [GenreController::class, 'create'])->name('genreCreate');
 
-Route::post('/genre/update/', [GenreController::class, 'update'])->name('genreUpdate');
+    Route::get('/genre/update/{id}', function (int $id) {
+        return view(
+            'update.genre',
+            [
+                'genre' => Genre::find($id),
+            ]
+        );
+    })->name('genreUpdateForm');
 
-Route::get('/genre/detail/{id}', [GenreController::class, 'detail'])->name('genreDetail');
+    Route::post('/genre/update/', [GenreController::class, 'update'])->name('genreUpdate');
 
-Route::get('/genre/delete/{id}', [GenreController::class, 'delete'])->name('genreDelete');
+    Route::get('/genre/detail/{id}', [GenreController::class, 'detail'])->name('genreDetail');
+
+    Route::get('/genre/delete/{id}', [GenreController::class, 'delete'])->name('genreDelete');
+
+
+});
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->get('/tokens', [UserController::class, 'tokens'])->name('tokens');
+Route::post('/create-token', [UserController::class, 'createToken'])->name('create-token');
+Route::view('/create-token', 'create-token')->name('create-token-view');

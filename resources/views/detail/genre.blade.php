@@ -1,13 +1,10 @@
-@include('includes.header')
-<body>
-@include('includes.nav')
-<div class="container">
+<x-layout>
     <div class="container">
-        <ul class="list-group">
-            <li class="list-group-item">Название жанра - {{ $genre->name }}</li>
-            <li class="list-group-item">Дата создания - {{ $genre->created_at }}</li>
-        </ul>
+        <div class="container">
+            <ul class="list-group">
+                <li class="list-group-item">Название жанра - {{ $genre->name }}</li>
+                <li class="list-group-item">Дата создания - {{ $genre->created_at }}</li>
+            </ul>
+        </div>
     </div>
-</div>
-</body>
-</html>
+</x-layout>
