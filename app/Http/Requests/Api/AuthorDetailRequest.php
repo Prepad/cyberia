@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests\Api;
 
+use App\Traits\ValidateFail;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthorDetailRequest extends FormRequest
 {
+    use ValidateFail;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -40,10 +41,6 @@ class AuthorDetailRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'status' => 'error',
-            'message' => 'Validation failed',
-            'errors' => $validator->errors()
-        ], 422));
+        $this->validateFailResponse($validator);
     }
 }

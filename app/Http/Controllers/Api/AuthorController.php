@@ -12,8 +12,6 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    use ValidateAuthor;
-
     public function detail(AuthorDetailRequest $request)
     {
         return response()->json(Author::with('books')->find($request->id));
@@ -27,10 +25,8 @@ class AuthorController extends Controller
     public function update(AuthorUpdateRequest $request)
     {
         $author = Author::find($request->input('id'));
-        $this->validateAuthor($request->user(), $author->id);
-        if ($request->has('name')) {
-            $author->name = $request->name;
-        }
+        $request->user()->validateAuthor($author->id);
+        $author->name = $request->name ?? $author->name;
         $author->save();
         return response()->json(['message' => 'create is success']);
     }

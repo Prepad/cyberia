@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\ValidateFail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -56,5 +59,16 @@ class User extends Authenticatable
     public function authors()
     {
         return $this->hasMany(Author::class);
+    }
+
+    public function validateAuthor(int $authorId)
+    {
+        if (is_null($this->authors()->find($authorId))) {
+            throw new HttpResponseException(response()->json([
+                'status' => 'error',
+                'message' => 'Validation failed',
+                'errors' => 'Ошибка валидации автора',
+            ], 422));
+        }
     }
 }
