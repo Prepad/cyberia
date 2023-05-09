@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AuthorUpdateRequest extends FormRequest
+class AuthorDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class AuthorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'exists:authors',
+            'id' => 'required|exists:authors',
         ];
     }
 

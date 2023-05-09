@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AuthorUpdateRequest extends FormRequest
+class BookDeleteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +26,15 @@ class AuthorUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'exists:authors',
+            'id' => 'required|exists:books',
         ];
     }
 
     public function messages()
     {
         return [
-            'id.required' => 'Отсутствует идентификатор автора',
-            'id.exists' => 'Такого автора не существует',
+            'id.required' => 'Отсутствует идентификатор книги',
+            'id.exists' => 'Такой книги не существует',
         ];
     }
 

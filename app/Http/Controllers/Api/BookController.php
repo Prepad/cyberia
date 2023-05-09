@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BookCreateRequest;
+use App\Http\Requests\Api\BookDeleteRequest;
 use App\Http\Requests\Api\BookUpdateRequest;
 use App\Models\Book;
+use App\Traits\ValidateAuthor;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    use ValidateAuthor;
+
     public function detail(Request $request)
     {
         return response()->json(Book::with('genres')->find($request->id));
@@ -17,34 +22,35 @@ class BookController extends Controller
 
     public function list()
     {
-        return response()->json(Book::paginate(10));
-    }
-
-    public function create(BookCreateRequest $request)
-    {
-        $book = new Book();
-        $book->name = $request->name;
-        $book->type = $request->type;
-        $book->author_id = $request->author;
-        $book->save();
-        $book->genres()->sync($request->genre);
-        return response()->json(['message' => 'create is success']);
+        return response()->json(Book::query()->with('Author')->paginate(10));
     }
 
     public function update(BookUpdateRequest $request)
     {
         $book = Book::find($request->id);
-        $book->name = $request->name;
-        $book->type = $request->type;
-        $book->author_id = $request->author;
+        $this->validateAuthor($request->user(), $book->author_id);
+        if ($request->has('name')) {
+
+            $book->name = $request->name;
+        }
+        if ($request->has('type')) {
+            $book->type = $request->type;
+        }
+        if ($request->has('author')) {
+            $book->author_id = $request->author;
+        }
         $book->save();
-        $book->genres()->sync($request->genre);
-        return response()->json(['message' => 'create is success']);
+        if ($request->has('genre')) {
+            $book->genres()->sync($request->genre);
+        }
+        return response()->json(['message' => 'update is success']);
     }
 
-    public function delete(Request $request)
+    public function delete(BookDeleteRequest $request)
     {
-        Book::destroy($request->id);
+        $book = Book::find($request->id);
+        $this->validateAuthor($request->user(), $book->author_id);
+        $book->destroy($request->id);
         return response()->json(['message' => 'delete is success']);
     }
 }
