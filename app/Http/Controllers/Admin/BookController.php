@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BookCreateRequest;
+use App\Http\Requests\Admin\BookCreateRequest;
+use App\Http\Requests\Admin\BookUpdateRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,7 @@ class BookController extends Controller
         return redirect()->back();
     }
 
-    public function update(BookCreateRequest $request)
+    public function update(BookUpdateRequest $request)
     {
         $book = Book::find($request->bookId);
         $book->name = $request->bookName;

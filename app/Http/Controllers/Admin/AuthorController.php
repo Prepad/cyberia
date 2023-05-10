@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthorUpdateRequest;
+use App\Http\Requests\Admin\AuthorCreateRequest;
+use App\Http\Requests\Admin\AuthorUpdateRequest;
 use App\Models\Author;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class AuthorController extends Controller
         );
     }
 
-    public function create(AuthorUpdateRequest $request)
+    public function create(AuthorCreateRequest $request)
     {
         $author = new Author();
         $author->name = $request->authorName;

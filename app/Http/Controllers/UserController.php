@@ -15,9 +15,9 @@ class UserController extends Controller
         return view('tokens', ['tokens' => $tokens]);
     }
 
-    public function createToken(Request $request): RedirectResponse
+    public function createToken(Request $request): View
     {
-        Auth::user()->createToken($request->name);
-        return redirect('tokens');
+        $plainToken = Auth::user()->createToken($request->name)->plainTextToken;
+        return view('plaintoken', ['token' => $plainToken]);
     }
 }
